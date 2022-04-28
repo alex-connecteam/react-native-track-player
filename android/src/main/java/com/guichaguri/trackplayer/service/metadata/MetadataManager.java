@@ -1,5 +1,6 @@
 package com.guichaguri.trackplayer.service.metadata;
 
+import android.app.Application;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -72,6 +73,14 @@ public class MetadataManager {
             openApp = new Intent();
             openApp.setPackage(packageName);
             openApp.addCategory(Intent.CATEGORY_LAUNCHER);
+        }
+
+        Application application = service.getApplication();
+        if (application instanceof ComponentNameOverrideProvider) {
+            ComponentName componentName = ((ComponentNameOverrideProvider) application).getComponentNameToOverride();
+            if (componentName != null) {
+                openApp.setComponent(componentName);
+            }
         }
 
         // Prevent the app from launching a new instance
