@@ -1,6 +1,6 @@
 package com.guichaguri.trackplayer.service.player;
 
-import com.google.android.exoplayer2.extractor.mp4.MdtaMetadataEntry;
+//import com.google.android.exoplayer2.extractor.mp4.MdtaMetadataEntry;
 import com.google.android.exoplayer2.metadata.Metadata;
 import com.google.android.exoplayer2.metadata.flac.VorbisComment;
 import com.google.android.exoplayer2.metadata.icy.IcyHeaders;
@@ -146,7 +146,7 @@ public class SourceMetadata {
     private static void handleQuickTimeMetadata(MusicManager manager, Metadata metadata) {
         String title = null, artist = null, album = null, date = null, genre = null;
 
-        for (int i = 0; i < metadata.length(); i++) {
+        /*for (int i = 0; i < metadata.length(); i++) {
             Metadata.Entry entry = metadata.get(i);
 
             if (!(entry instanceof MdtaMetadataEntry)) continue;
@@ -169,7 +169,7 @@ public class SourceMetadata {
             } catch(Exception ex) {
                 // Ignored
             }
-        }
+        }*/
 
         if (title != null || artist != null || album != null || date != null || genre != null) {
             manager.onMetadataReceived("quicktime", title, null, artist, album, date, genre);
