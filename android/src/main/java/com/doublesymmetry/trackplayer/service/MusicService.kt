@@ -14,6 +14,7 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.doublesymmetry.kotlinaudio.models.*
 import com.doublesymmetry.kotlinaudio.models.NotificationButton.*
 import com.doublesymmetry.kotlinaudio.players.QueuedAudioPlayer
+import com.doublesymmetry.trackplayer.ComponentNameProvider
 import com.doublesymmetry.trackplayer.R
 import com.doublesymmetry.trackplayer.extensions.NumberExt.Companion.toMilliseconds
 import com.doublesymmetry.trackplayer.extensions.NumberExt.Companion.toSeconds
@@ -184,6 +185,13 @@ class MusicService : HeadlessJsTaskService() {
             // Add the Uri data so apps can identify that it was a notification click
             data = Uri.parse("trackplayer://notification.click")
             action = Intent.ACTION_VIEW
+        }
+
+        if (openAppIntent != null) {
+            val app = application
+            if (app is ComponentNameProvider) {
+                openAppIntent.component = app.getComponentNameToOverride()
+            }
         }
 
         val accentColor = BundleUtils.getIntOrNull(options, "color")
